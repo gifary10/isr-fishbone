@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#fa800c" />
+    <meta name="description" content="Hasil analisis Fishbone untuk identifikasi akar masalah">
+    <title>Hasil Analisis Fishbone</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/main.css">
+</head>
+<body>
+    <header class="app-header" style="background: linear-gradient(180deg, #fa800c, #d32f2f);">
+        <h1 class="app-title">
+            <i class="fas fa-chart-bar" aria-hidden="true"></i> Hasil Analisis Fishbone
+        </h1>
+    </header>
+
+    <div class="container py-2">
+        <div class="row g-2">
+            <!-- Diagram Visualization -->
+            <div class="col-12 mb-3">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-white">
+                        <i class="fas fa-fish me-2" aria-hidden="true"></i> Diagram Fishbone
+                    </div>
+                    <div class="card-body p-2">
+                        <div id="fishboneDiagram" style="height: 240px;" aria-label="Visualisasi diagram fishbone">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Memuat diagram...</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <div class="legend">
+                                <span class="badge bg-danger me-1">Critical</span>
+                                <span class="badge bg-warning me-1">High</span>
+                                <span class="badge bg-info me-1">Medium</span>
+                                <span class="badge bg-success">Low</span>
+                            </div>
+                            <div class="text-muted small">
+                                <i class="fas fa-mouse-pointer me-1" aria-hidden="true"></i> Interaktif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis Summary -->
+            <div class="col-12 col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-header bg-info text-white">
+                        <i class="fas fa-clipboard-check me-2" aria-hidden="true"></i> Ringkasan Analisis
+                    </div>
+                    <div class="card-body p-2">
+                        <div id="summaryStats" class="mb-2">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="small">Total Penyebab:</span>
+                                <strong id="totalCauses" class="small">0</strong>
+                            </div>
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="small">Kategori Dominan:</span>
+                                <strong id="dominantCategory" class="small">-</strong>
+                            </div>
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="small">Penyebab Critical:</span>
+                                <strong id="criticalCauses" class="small">0</strong>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span class="small">Tingkat Risiko:</span>
+                                <span id="riskLevel" class="badge bg-danger small">High</span>
+                            </div>
+                        </div>
+                        <div class="priority-chart-container" style="height: 120px;">
+                            <canvas id="priorityChart" aria-label="Grafik prioritas penyebab"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Effective Solutions -->
+            <div class="col-12 col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-header bg-warning text-dark">
+                        <i class="fas fa-lightbulb me-2" aria-hidden="true"></i> Solusi Paling Efektif
+                    </div>
+                    <div class="card-body p-2">
+                        <ul id="effectiveSolutions" class="list-group list-group-flush small">
+                            <!-- Top solutions will be inserted here -->
+                            <li class="list-group-item text-center py-3">
+                                <div class="spinner-border spinner-border-sm text-primary" role="status">
+                                    <span class="visually-hidden">Memuat solusi...</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Results -->
+            <div class="col-12 mb-3">
+                <div class="card">
+                    <div class="card-header bg-secondary text-white d-flex align-items-center">
+                        <i class="fas fa-list-ul me-2" aria-hidden="true"></i> Detail Penyebab
+                        <span class="badge bg-light text-dark ms-auto small" id="causesCount">0 penyebab</span>
+                    </div>
+                    <div class="card-body p-2">
+                        <div class="row g-2" id="resultsContainer">
+                            <!-- Cause cards will be inserted here -->
+                            <div class="col-12 text-center py-4">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Memuat data penyebab...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="row mt-3 mb-3">
+            <div class="col-12">
+                <div class="d-grid gap-2">
+                    <button id="backButton" class="btn btn-primary w-100 fixed-bottom" style="z-index: 999;">
+                        <i class="fas fa-arrow-left me-2" aria-hidden="true"></i> Kembali ke Analisis
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+    <!-- External JavaScript files (dengan modul ES6) -->
+    <script type="module" src="assets/fishbone-utils.js"></script>
+    <script type="module" src="assets/correlation-utils.js"></script>
+    <script type="module" src="assets/fishbone-diagram.js"></script>
+    <script type="module" src="assets/results-app.js"></script>
+</body>
+</html>
