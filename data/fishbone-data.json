@@ -1,0 +1,355 @@
+{
+  "metadata": {
+    "version": "2.0.0",
+    "created": "2023-11-15",
+    "lastUpdated": "2024-06-15",
+    "author": "Tim Fishbone Analysis",
+    "description": "Data lengkap untuk analisis fishbone mengikuti standar ISO 45001"
+  },
+  "categories": {
+    "man": {
+      "name": "Faktor Manusia",
+      "icon": "fas fa-users",
+      "color": "#3498db",
+      "items": [
+        {
+          "id": "man-001",
+          "cause": "Kurangnya kesadaran bahaya",
+          "description": "Gagal mengenali situasi berbahaya atau menyepelekan risiko. Penyebab 42% kecelakaan fatal menurut OSHA.",
+          "priority": "Critical",
+          "solutions": [
+            "Pelatihan hazard recognition secara berkala",
+            "Job Safety Analysis (JSA) untuk semua tugas",
+            "Sistem reminder visual di area berbahaya"
+          ],
+          "impact": "Meningkatkan risiko kecelakaan fatal",
+          "caseExamples": [
+            "Pekerja tidak mengenali bahaya listrik tersembunyi",
+            "Mengabaikan tanda peringatan bahaya"
+          ],
+          "preventionCost": "low",
+          "detectionDifficulty": "medium"
+        },
+        {
+          "id": "man-002",
+          "cause": "Gangguan perhatian (distraction)",
+          "description": "Teralihkannya fokus saat operasi alat berat atau proses berbahaya. Kontributor 28% kecelakaan industri.",
+          "priority": "High",
+          "solutions": [
+            "Kebijakan \"zona fokus\" di area kritis",
+            "Pembatasan penggunaan ponsel saat operasi",
+            "Budaya saling mengingatkan (peer observation)"
+          ],
+          "statistics": {
+            "frequency": "22% dari total insiden",
+            "severity": "Rata-rata 5 hari kerja hilang"
+          },
+          "relatedItems": ["machine-003", "method-005"]
+        },
+        {
+          "id": "man-003",
+          "cause": "Pelanggaran prosedur keselamatan",
+          "description": "Sengaja tidak mengikuti SOP untuk menghemat waktu atau usaha. Ditemukan pada 60% investigasi kecelakaan.",
+          "priority": "Critical",
+          "solutions": [
+            "Safety leadership dan pengawasan ketat",
+            "Program \"Stop Work Authority\"",
+            "Analisis penyebab pelanggaran (bukan hanya hukuman)"
+          ],
+          "rootCauses": [
+            "Tekanan produksi",
+            "Budaya kerja tidak aman"
+          ]
+        },
+        {
+          "id": "man-004",
+          "cause": "Kelelahan (fatigue)",
+          "description": "Penurunan kewaspadaan akibat jam kerja panjang atau istirahat tidak cukup. Meningkatkan risiko kecelakaan 30-50%.",
+          "priority": "High",
+          "solutions": [
+            "Manajemen shift kerja yang ergonomis",
+            "Pembatasan overtime untuk tugas berisiko",
+            "Program deteksi dini gejala kelelahan"
+          ],
+          "workingHoursImpact": {
+            ">8 jam": "35% peningkatan risiko",
+            ">12 jam": "70% peningkatan risiko"
+          }
+        },
+        {
+          "id": "man-005",
+          "cause": "Kurangnya keterampilan operasional",
+          "description": "Ketidakmampuan mengoperasikan alat/mesin dengan benar. Kontributor 18% kecelakaan kerja.",
+          "priority": "High",
+          "solutions": [
+            "Program sertifikasi kompetensi berbasis praktik",
+            "Pelatihan simulator untuk tugas berisiko tinggi",
+            "Evaluasi kompetensi berkala setiap 6 bulan"
+          ],
+          "trainingHours": {
+            "basic": "40 jam",
+            "advanced": "80 jam"
+          },
+          "certification": "Sertifikasi BNSP"
+        }
+      ]
+    },
+    "method": {
+      "name": "Faktor Metode",
+      "icon": "fas fa-project-diagram",
+      "color": "#17a2b8",
+      "items": [
+        {
+          "id": "meth-001",
+          "cause": "SOP tidak tersedia untuk tugas berisiko",
+          "description": "Tidak adanya prosedur tertulis untuk pekerjaan berbahaya. Ditemukan dalam 38% kecelakaan fatal.",
+          "priority": "Critical",
+          "solutions": [
+            "Pengembangan JSA (Job Safety Analysis) untuk semua tugas kritis",
+            "Sistem verifikasi SOP sebelum memulai pekerjaan baru",
+            "Pelatihan penulisan SOP untuk supervisor"
+          ],
+          "riskAssessment": {
+            "required": true,
+            "reference": "Permenaker No. 38/2021",
+            "frequency": "Tahunan"
+          }
+        },
+        {
+          "id": "meth-002",
+          "cause": "Instruksi kerja tidak jelas",
+          "description": "Prosedur yang ambigu atau terbuka interpretasi. Penyebab 31% kesalahan operasional.",
+          "priority": "High",
+          "solutions": [
+            "Prinsip 5C dalam penulisan prosedur (Clear, Concise, Correct, Complete, Consistent)",
+            "Penggunaan diagram alir dan visual aid",
+            "Verifikasi pemahaman dengan metode teach-back"
+          ]
+        }
+      ]
+    },
+    "machine": {
+      "name": "Faktor Mesin",
+      "icon": "fas fa-cogs",
+      "color": "#ffc107",
+      "items": [
+        {
+          "id": "machine-001",
+          "cause": "Kerusakan komponen kritis",
+          "description": "Kegagalan komponen utama seperti rem, pengaman, atau sistem kontrol. Penyebab 28% kecelakaan alat berat.",
+          "priority": "Critical",
+          "solutions": [
+            "Program preventive maintenance dengan NDT (Non-Destructive Testing)",
+            "Sistem monitoring kondisi mesin real-time",
+            "Penggantian komponen berdasarkan life-time"
+          ],
+          "technicalDetails": {
+            "components": ["Bearing overload", "Hidrolik leakage", "Wire rope failure"],
+            "mtbf": "4000 jam",
+            "mttr": "8 jam"
+          }
+        },
+        {
+          "id": "machine-002",
+          "cause": "Keausan komponen tidak terdeteksi",
+          "description": "Degradasi komponen yang tidak terpantau hingga menyebabkan kegagalan fungsional.",
+          "priority": "High",
+          "solutions": [
+            "Jadwal inspeksi berkala dengan checklist terperinci",
+            "Pelatihan operator untuk deteksi gejala awal keausan",
+            "Implementasi predictive maintenance dengan sensor IoT"
+          ]
+        }
+      ]
+    },
+    "material": {
+      "name": "Faktor Material",
+      "icon": "fas fa-boxes",
+      "color": "#dc3545",
+      "items": [
+        {
+          "id": "mat-001",
+          "cause": "Material tidak sesuai spesifikasi",
+          "description": "Penggunaan material di bawah standar teknis. Penyebab 35% kegagalan struktural.",
+          "priority": "Critical",
+          "solutions": [
+            "Sistem verifikasi sertifikat material (MTC)",
+            "Pengujian material masuk secara acak",
+            "Daftar hitam pemasok tidak terpercaya"
+          ],
+          "technicalSpecs": {
+            "standard": "ASTM A36",
+            "actual": "ASTM A283 Grade D",
+            "propertyGaps": {
+              "yieldStrength": "250MPa vs 200MPa",
+              "elongation": "23% vs 18%"
+            }
+          }
+        },
+        {
+          "id": "mat-002",
+          "cause": "Degradasi material selama penyimpanan",
+          "description": "Material rusak karena kondisi penyimpanan tidak tepat. Menyebabkan 18% waste material.",
+          "priority": "High",
+          "solutions": [
+            "Sistem penyimpanan dengan kontrol lingkungan",
+            "First-In-First-Out (FIFO) system",
+            "Inspeksi berkala material tersimpan"
+          ]
+        }
+      ]
+    },
+    "measurement": {
+      "name": "Faktor Pengukuran",
+      "icon": "fas fa-ruler-combined",
+      "color": "#28a745",
+      "items": [
+        {
+          "id": "meas-001",
+          "cause": "Alat ukur tidak terkalibrasi",
+          "description": "Penggunaan alat ukur dengan akurasi tidak terjamin. Menyebabkan 32% kecelakaan proses kimia.",
+          "priority": "Critical",
+          "solutions": [
+            "Program kalibrasi berkala dengan sertifikat traceable",
+            "Sistem reminder otomatis untuk jadwal kalibrasi",
+            "Label status kalibrasi yang jelas di alat"
+          ],
+          "calibrationRequirements": {
+            "frequency": "3 bulan",
+            "standard": "ISO/IEC 17025",
+            "tolerance": "±1% FS"
+          }
+        },
+        {
+          "id": "meas-002",
+          "cause": "Kegagalan deteksi gas berbahaya",
+          "description": "Sistem tidak mendeteksi akumulasi gas mudah terbakar atau beracun. Penyebab 45% kecelakaan confined space.",
+          "priority": "Critical",
+          "solutions": [
+            "Sistem deteksi gas multi-sensor dengan kalibrasi rutin",
+            "Prosedur gas testing sebelum entry confined space",
+            "Alarm otomatis dengan shutdown system"
+          ]
+        }
+      ]
+    },
+    "environment": {
+      "name": "Faktor Lingkungan",
+      "icon": "fas fa-leaf",
+      "color": "#6c757d",
+      "items": [
+        {
+          "id": "env-001",
+          "cause": "Cuaca ekstrim (hujan lebat, angin kencang)",
+          "description": "Kondisi cuaca yang membahayakan operasi kerja outdoor. Penyebab 40% kecelakaan konstruksi.",
+          "priority": "Critical",
+          "solutions": [
+            "Sistem monitoring cuaca real-time",
+            "Prosedur penghentian kerja saat kondisi ekstrim",
+            "Pelatihan respon kondisi darurat"
+          ],
+          "thresholds": {
+            "windSpeed": ">40 km/jam",
+            "rainfall": ">50 mm/jam",
+            "lightning": "Dalam radius 10 km"
+          }
+        },
+        {
+          "id": "env-002",
+          "cause": "Gempa bumi atau aktivitas seismik",
+          "description": "Guncangan yang tidak terduga dapat meruntuhkan struktur dan peralatan.",
+          "priority": "Critical",
+          "solutions": [
+            "Desain struktur tahan gempa",
+            "Prosedur evakuasi gempa",
+            "Sistem peringatan dini"
+          ]
+        }
+      ]
+    }
+  },
+  "relationships": {
+    "crossCategoryLinks": [
+      {
+        "source": "man-001",
+        "target": "meth-001",
+        "type": "contributingFactor",
+        "description": "Kurangnya kesadaran bahaya menyebabkan tidak diikutinya SOP"
+      },
+      {
+        "source": "man-003",
+        "target": "machine-001",
+        "type": "operatorError",
+        "description": "Pelanggaran prosedur menyebabkan kerusakan komponen mesin"
+      },
+      {
+        "source": "env-001",
+        "target": "man-002",
+        "type": "environmentalStress",
+        "description": "Cuaca ekstrim meningkatkan gangguan perhatian operator"
+      },
+      {
+        "source": "mat-001",
+        "target": "meas-001",
+        "type": "measurementError",
+        "description": "Material tidak sesuai spesifikasi menyebabkan kesalahan pengukuran"
+      }
+    ],
+    "riskClusters": [
+      {
+        "name": "Human-Machine Interface",
+        "items": ["man-002", "man-004", "machine-003"],
+        "riskLevel": "High"
+      },
+      {
+        "name": "Environmental Impact",
+        "items": ["env-001", "env-002", "man-004"],
+        "riskLevel": "Critical"
+      }
+    ]
+  },
+  "compliance": {
+    "standards": [
+      "ISO 45001:2018",
+      "Permenaker No. 38 Tahun 2021",
+      "OSHA 29 CFR 1910",
+      "SNI 03-6575-2001"
+    ],
+    "requirements": {
+      "training": "40 jam/tahun",
+      "inspection": "Bulanan untuk peralatan kritis",
+      "documentation": "Penyimpanan 5 tahun"
+    }
+  },
+  "riskAssessment": {
+    "probabilityMatrix": {
+      "Critical": ">1x/bulan",
+      "High": "1x/6 bulan",
+      "Medium": "1x/tahun",
+      "Low": "<1x/tahun"
+    },
+    "severityMatrix": {
+      "Critical": "Kematian/kerugian >1M",
+      "High": "Cidera permanen/kerugian 500jt-1M",
+      "Medium": "Cidera sementara/kerugian 100-500jt",
+      "Low": "First aid/kerugian <100jt"
+    }
+  },
+  "preventiveActions": [
+    {
+      "category": "Semua",
+      "action": "Audit keselamatan berkala",
+      "frequency": "6 bulan"
+    },
+    {
+      "category": "Manusia",
+      "action": "Pelatihan kesadaran bahaya",
+      "frequency": "Tahunan"
+    },
+    {
+      "category": "Mesin",
+      "action": "Preventive maintenance",
+      "frequency": "Berdasarkan jam operasi"
+    }
+  ]
+}
