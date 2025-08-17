@@ -19,6 +19,7 @@
             <h2 class="app-title m-0">
                 <i class="fas fa-fish" aria-hidden="true"></i> Fishbone Analysis
             </h2>
+            <!-- Tombol logout -->
             <button id="logoutBtn" class="btn btn-primary btn-sm">
                 <i class="fas fa-sign-out-alt me-1"></i> Logout
             </button>
@@ -26,7 +27,6 @@
     </header>
     
     <div class="container">
-        <div id="message" class="alert alert-info d-none mb-3"></div>
         <div class="row g-3">
             <!-- Manusia Card -->
             <div class="col-12 col-sm-6 col-lg-4">
@@ -174,10 +174,12 @@
         </div>
     </div>
 
+    <!-- Tombol Analisis di bawah -->
     <button class="btn btn-primary fixed-bottom-btn" id="analyze-btn">
         <i class="fas fa-chart-bar me-2"></i> Analisis
     </button>
 
+    <!-- JS Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
@@ -189,46 +191,44 @@
         });
     </script>
     <script>
-    const JSON_URL = "https://script.google.com/macros/s/AKfycbxREnHc45oaAIKbbPB7mWCcPMynGgQcKbSmgZPaoMZhvFB1OtXAawjV7Hss_hlBzRZHiA/exec"; 
+        const JSON_URL = "https://script.google.com/macros/s/AKfycbxREnHc45oaAIKbbPB7mWCcPMynGgQcKbSmgZPaoMZhvFB1OtXAawjV7Hss_hlBzRZHiA/exec"; 
 
-    function getQueryParam(name) {
-      return new URLSearchParams(window.location.search).get(name);
-    }
-
-    (async function() {
-      const token = getQueryParam("token") || sessionStorage.getItem('authToken');
-      if(!token) {
-        window.location.href="https://gifary10.github.io/isr-login-access/";
-        return;
-      }
-
-      try {
-        const res = await fetch(`${JSON_URL}?token=${token}`);
-        const data = await res.json();
-        const messageEl = document.getElementById('message');
-        
-        if(data.valid) {
-          sessionStorage.setItem('authToken', token);
-          messageEl.textContent = "Token valid! Anda dapat mulai menganalisis.";
-          messageEl.classList.remove('d-none', 'alert-danger');
-          messageEl.classList.add('alert-success');
-        } else {
-          messageEl.textContent = "Token tidak valid/expired, redirecting...";
-          messageEl.classList.remove('d-none', 'alert-success');
-          messageEl.classList.add('alert-danger');
-          setTimeout(() => window.location.href="https://gifary10.github.io/isr-login-access/", 1500);
+        function getQueryParam(name) {
+            return new URLSearchParams(window.location.search).get(name);
         }
-      } catch(err) {
-        console.error(err);
-        document.getElementById('message').textContent = "Error memverifikasi token, redirecting...";
-        setTimeout(() => window.location.href="https://gifary10.github.io/isr-login-access/", 1500);
-      }
-    })();
 
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-      sessionStorage.removeItem('authToken');
-      window.location.href = "https://gifary10.github.io/isr-login-access/";
-    });
+        (async function() {
+            const token = getQueryParam("token");
+            if(!token) return window.location.href="https://gifary10.github.io/isr-login-access/";
+
+            try {
+                const res = await fetch(`${JSON_URL}?token=${token}`);
+                const data = await res.json();
+                if(data.valid) {
+                    // Token valid, lanjutkan
+                } else {
+                    window.location.href="https://gifary10.github.io/isr-login-access/";
+                }
+            } catch(err) {
+                console.error(err);
+                window.location.href="https://gifary10.github.io/isr-login-access/";
+            }
+        })();
+
+        // Aksi logout
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            window.location.href = "https://gifary10.github.io/isr-login-access/";
+        });
+
+        // Aksi analisis (kirim token ke hasil.html)
+        document.getElementById("analyze-btn").addEventListener("click", () => {
+            const token = getQueryParam("token");
+            if (token) {
+                window.location.href = `hasil.html?token=${token}`;
+            } else {
+                window.location.href = "https://gifary10.github.io/isr-login-access/";
+            }
+        });
     </script>
 </body>
 </html>
