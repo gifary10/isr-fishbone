@@ -15,16 +15,16 @@
 </head>
 <body>
     <header class="app-header">
-        <div class="d-flex justify-content-between align-items-center">
-            <h2 class="app-title m-0">
-                <i class="fas fa-fish" aria-hidden="true"></i> Fishbone Analysis
-            </h2>
-            <!-- Tombol logout -->
-            <button id="logoutBtn" class="btn btn-primary btn-sm">
-                <i class="fas fa-sign-out-alt me-1"></i> Logout
-            </button>
-        </div>
-    </header>
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="app-title m-0">
+            <i class="fas fa-fish" aria-hidden="="true"></i> Fishbone Analysis
+        </h2>
+        <!-- Tombol logout -->
+        <button id="logoutBtn" class="btn btn-primary btn-sm">
+            <i class="fas fa-sign-out-alt me-1"></i> Logout
+        </button>
+    </div>
+</header>
     
     <div class="container">
         <div class="row g-3">
@@ -191,44 +191,36 @@
         });
     </script>
     <script>
-        const JSON_URL = "https://script.google.com/macros/s/AKfycbxREnHc45oaAIKbbPB7mWCcPMynGgQcKbSmgZPaoMZhvFB1OtXAawjV7Hss_hlBzRZHiA/exec"; 
+    const JSON_URL = "https://script.google.com/macros/s/AKfycbxREnHc45oaAIKbbPB7mWCcPMynGgQcKbSmgZPaoMZhvFB1OtXAawjV7Hss_hlBzRZHiA/exec"; 
 
-        function getQueryParam(name) {
-            return new URLSearchParams(window.location.search).get(name);
+    function getQueryParam(name) {
+      return new URLSearchParams(window.location.search).get(name);
+    }
+
+    (async function() {
+      const token = getQueryParam("token");
+      if(!token) return window.location.href="https://gifary10.github.io/isr-login-access/";
+
+      try {
+        const res = await fetch(`${JSON_URL}?token=${token}`);
+        const data = await res.json();
+        if(data.valid) {
+          document.getElementById('message').textContent = "Token valid! Konten ditampilkan.";
+        } else {
+          document.getElementById('message').textContent = "Token tidak valid/expired, redirecting...";
+          setTimeout(()=>window.location.href="https://gifary10.github.io/isr-login-access/",1000);
         }
+      } catch(err) {
+        console.error(err);
+        document.getElementById('message').textContent = "Error, redirecting...";
+        setTimeout(()=>window.location.href="https://gifary10.github.io/isr-login-access/",1000);
+      }
+    })();
 
-        (async function() {
-            const token = getQueryParam("token");
-            if(!token) return window.location.href="https://gifary10.github.io/isr-login-access/";
-
-            try {
-                const res = await fetch(`${JSON_URL}?token=${token}`);
-                const data = await res.json();
-                if(data.valid) {
-                    // Token valid, lanjutkan
-                } else {
-                    window.location.href="https://gifary10.github.io/isr-login-access/";
-                }
-            } catch(err) {
-                console.error(err);
-                window.location.href="https://gifary10.github.io/isr-login-access/";
-            }
-        })();
-
-        // Aksi logout
-        document.getElementById("logoutBtn").addEventListener("click", () => {
-            window.location.href = "https://gifary10.github.io/isr-login-access/";
-        });
-
-        // Aksi analisis (kirim token ke hasil.html)
-        document.getElementById("analyze-btn").addEventListener("click", () => {
-            const token = getQueryParam("token");
-            if (token) {
-                window.location.href = `hasil.html?token=${token}`;
-            } else {
-                window.location.href = "https://gifary10.github.io/isr-login-access/";
-            }
-        });
-    </script>
+    // aksi logout
+    document.getElementById("logoutBtn").addEventListener("click", ()=>{
+      window.location.href = "https://gifary10.github.io/isr-login-access/";
+    });
+  </script>
 </body>
 </html>
